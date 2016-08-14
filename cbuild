@@ -1,0 +1,11 @@
+-Wall -Wfatal-errors -Werror -pedantic -std=c99 -Wextra -Wdouble-promotion -Wunused-parameter -Wunused -Wuninitialized -fPIC
+-lm
+
+
+dynamic: data-structures, static: data-structures
+
+data-structures: hashmap linked_list slice optional
+hashmap: linked_list util
+linked_list: util
+optional: util
+slice: util optional
