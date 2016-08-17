@@ -27,9 +27,23 @@ void al_add(array_list *list, void *item) {
     }
 }
 
-void al_remove(array_list *list, int index) {
+void al_remove_index(array_list *list, int index) {
     memmove(list->buffer + list->item_size * index, list->buffer + list->item_size * (index + 1), list->length - index);
     list->length -= 1;
+}
+
+void al_remove_item(array_list *list, void *item) {
+    al_remove_index(list, al_index(list, item));
+}
+
+int al_index(array_list *list, void *item) {
+    int size = al_size(list);
+    for(int i = 0; i < size; i++) {
+        if(memcmp(al_get(list, i), item) == 0) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 void al_set(array_list *list, int index, void *data) {
