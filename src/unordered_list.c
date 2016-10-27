@@ -1,8 +1,9 @@
 #include <stdlib.h>
+#include <string.h>
 #include "unordered_list.h"
 
 unordered_list ul_new(size_t item_size) {
-	return ul_prealloc(item_size, malloc(item_size * 10));
+	return ul_prealloc(item_size, malloc(item_size * 10), item_size * 10);
 }
 
 unordered_list ul_prealloc(size_t item_size, void *buffer, size_t buffer_size) {
@@ -10,7 +11,7 @@ unordered_list ul_prealloc(size_t item_size, void *buffer, size_t buffer_size) {
 }
 
 void *ul_get(const unordered_list list, size_t index) {
-	return list + (index * list->item);
+	return list.buffer + (index * list.item);
 }
 
 void ul_add(unordered_list *list, const void *item) {
@@ -31,7 +32,7 @@ void ul_remove(unordered_list *list, size_t index) {
 }
 
 void ul_set(unordered_list list, const void *item, size_t index) {
-	memcpy(list->buffer + (list->item * index), item, list->item);
+	memcpy(list.buffer + (list.item * index), item, list.item);
 }
 
 
