@@ -5,7 +5,7 @@
 #define ASSERT(cond, err, msg) if(!(cond)) { fprintf(stderr, "Test failed:\t%s", msg);  return (err); }
 
 int al_tests() {
-	array_list list = al_new(sizeof(int));
+	alist list = al_new(sizeof(int));
 	int temp = 5;
 	al_add(&list, &temp);
 	temp = 6;
