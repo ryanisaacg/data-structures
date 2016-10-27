@@ -1,5 +1,5 @@
-#ifndef UTIL_H_
-#define UTIL_H_
+#pragma once
+
 #include <stdlib.h>
 //Forward declare a struct
 #define DEFSTRUCT(name) struct name; typedef struct name name
@@ -8,4 +8,3 @@
 //Creates an array of a certain size on the heap
 #define array(name, len) malloc(sizeof(*(name)) * len)
 char *string(int length);
-#endif

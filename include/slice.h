@@ -1,5 +1,5 @@
-#ifndef SLICE_H_
-#define SLICE_H_
+#pragma once
+
 #include <stdbool.h>
 #include "util.h"
 #include "optional.h"
@@ -62,4 +62,3 @@ bool slice_eq_voidptr(void *slice1, void *slice2);
 Convert an integer into a slice
 */
 slice int_to_slice(int number);
-#endif

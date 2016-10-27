@@ -1,5 +1,5 @@
-#ifndef HASHMAP_H_
-#define HASHMAP_H_
+#pragma once
+
 #include "linked_list.h"
 #include <stdbool.h>
 
@@ -22,4 +22,3 @@ hash_map *hm_new_eqfunc(bool (*eq)(void*, void*));
 void hm_put(hash_map *map, int hash, void *key, void *value);
 void *hm_get(hash_map *map, int hash, void *key);
 bool hm_has(hash_map *map, int hash, void *key);
-#endif

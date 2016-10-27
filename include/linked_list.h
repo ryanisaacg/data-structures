@@ -1,5 +1,5 @@
-#ifndef LL_H_
-#define LL_H_
+#pragma once
+
 #include "util.h"
 #include <stdbool.h>
 
@@ -42,4 +42,3 @@ void *ll_iter_next(linked_iter *iter);
 bool ll_iter_has_next(linked_iter *iter);
 void ll_iter_clear_to_current(linked_iter *iter);
 void ll_iter_clear_remaining(linked_iter *iter);
-#endif

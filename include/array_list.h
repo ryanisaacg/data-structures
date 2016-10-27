@@ -1,5 +1,4 @@
-#ifndef ARRAY_LIST_H_
-#define ARRAY_LIST_H_
+#pragma once
 
 #include <stdbool.h>
 
@@ -21,4 +20,3 @@ void al_remove_item(array_list *list, void *item);
 void al_set(array_list *list, int index, void *data);
 int al_index(array_list *list, void *item);
 int al_size(array_list *list);
-#endif

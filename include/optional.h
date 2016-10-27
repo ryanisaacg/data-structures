@@ -1,5 +1,5 @@
-#ifndef OPTIONAL_H_
-#define OPTIONAL_H_
+#pragma once
+
 #include <stdbool.h>
 #include "util.h"
 
@@ -14,4 +14,3 @@ optional op_wrap(void *data);
 void *op_get(optional op);
 bool op_has(optional op);
 void *op_if_else(optional op, void *default_val);
-#endif
