@@ -12,8 +12,8 @@ array_list al_new_sized(size_t item_size, int init_capacity) {
     return list;
 }
 
-void *al_get(array_list *list, int index) {
-    return list->buffer + list->item_size * index;
+void *al_get(array_list list, int index) {
+    return list.buffer + list.item_size * index;
 }
 
 void al_add(array_list *list, void *item) {
@@ -39,7 +39,7 @@ void al_remove_item(array_list *list, void *item) {
 int al_index(array_list *list, void *item) {
     int size = al_size(list);
     for(int i = 0; i < size; i++) {
-        if(memcmp(al_get(list, i), item, list->item_size) == 0) {
+        if(memcmp(al_get(*list, i), item, list->item_size) == 0) {
             return i;
         }
     }
