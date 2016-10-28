@@ -4,19 +4,19 @@
 
 #include "util.h"
 
-DEFSTRUCT(array_list);
-struct array_list {
+DEFSTRUCT(alist);
+struct alist {
     size_t item_size;
     int length, capacity;
     void *buffer;
 };
 
-array_list al_new(size_t item_size);
-array_list al_new_sized(size_t item_size, int init_capacity);
-void *al_get(array_list list, int index);
-void al_add(array_list *list, void *item);
-void al_remove_index(array_list *list, int index);
-void al_remove_item(array_list *list, void *item);
-void al_set(array_list *list, int index, void *data);
-int al_index(array_list *list, void *item);
-int al_size(array_list *list);
+alist al_new(size_t item_size);
+alist al_new_sized(size_t item_size, int init_capacity);
+void *al_get(alist list, int index);
+void al_add(alist *list, void *item);
+void al_remove_index(alist *list, int index);
+void al_remove_item(alist *list, void *item);
+void al_set(alist *list, int index, void *data);
+int al_index(alist *list, void *item);
+int al_size(alist *list);

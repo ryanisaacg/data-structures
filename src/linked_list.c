@@ -6,23 +6,23 @@
 LIST
 ************************/
 
-linked_list *ll_new() {
-	linked_list *list = new(list);
+llist *ll_new() {
+	llist *list = new(list);
 	list->head = list->tail = NULL;
 	return list;
 }
 
-linked_list *ll_duplicate(linked_list *list) {
-	linked_iter iterator = ll_iter_head(list);
-	linked_list *newList = ll_new();
+llist *ll_duplicate(llist *list) {
+	literator iterator = ll_iter_head(list);
+	llist *newList = ll_new();
 	while(ll_iter_has_next(&iterator)) {
 		ll_add_last(newList, ll_iter_next(&iterator));
 	}
 	return newList;
 }
 
-void ll_add_first(linked_list *list, void *value) {
-	linked_node *node = new(node);
+void ll_add_first(llist *list, void *value) {
+	lnode *node = new(node);
 	node->data = value;
 	node->next = list->head;
 	if(list->head != NULL) {
@@ -35,11 +35,11 @@ void ll_add_first(linked_list *list, void *value) {
 	}
 }
 
-void ll_add_last(linked_list *list, void *value) {
+void ll_add_last(llist *list, void *value) {
 	if(list->head == NULL) {
 		ll_add_first(list, value);
 	} else {
-		linked_node *node = new(node);
+		lnode *node = new(node);
 		node->data = value;
 		node->prev = list->tail;
 		if(list->tail != NULL) {
@@ -50,28 +50,28 @@ void ll_add_last(linked_list *list, void *value) {
 	}
 }
 
-void ll_concat(linked_list *mutated, linked_list *newItems) {
-    linked_iter iterator = ll_iter_head(newItems);
+void ll_concat(llist *mutated, llist *newItems) {
+    literator iterator = ll_iter_head(newItems);
     while(ll_iter_has_next(&iterator)) {
         ll_add_last(mutated, ll_iter_next(&iterator));
     }
 }
 
-void *ll_get_first(linked_list *list) {
+void *ll_get_first(llist *list) {
 	return list->head->data;
 }
 
-void *ll_get_last(linked_list *list) {
+void *ll_get_last(llist *list) {
 	return list->tail->data;
 }
 
-void *ll_remove_last(linked_list *list) {
+void *ll_remove_last(llist *list) {
 	void *data = list->tail->data;
 	if(list->head == list->tail) {
 		free(list->head);
 		list->head = list->tail = NULL;
 	} else {
-		linked_node *tail = list->tail;
+		lnode *tail = list->tail;
 		list->tail = list->tail->prev;
 		list->tail->next = NULL;
 		free(tail);
@@ -79,13 +79,13 @@ void *ll_remove_last(linked_list *list) {
 	return data;
 }
 
-void *ll_remove_first(linked_list *list) {
+void *ll_remove_first(llist *list) {
 	void *data = list->head->data;
 	if(list->head == list->tail) {
 		free(list->head);
 		list->head = list->tail = NULL;
 	} else {
-		linked_node *head = list->head;
+		lnode *head = list->head;
 		list->head = list->head->next;
 		list->head->prev = NULL;
 		free(head);
@@ -93,35 +93,35 @@ void *ll_remove_first(linked_list *list) {
 	return data;
 }
 
-bool ll_empty(linked_list *list) {
+bool ll_empty(llist *list) {
 	return list->head == NULL;
 }
 
-void ll_clear(linked_list *list) {
+void ll_clear(llist *list) {
 	list->tail = NULL;
 	while(list->head != NULL) {
-		linked_node *next = list->head->next;
+		lnode *next = list->head->next;
 		free(list->head);
 		list->head = next;
 	}
 }
 
-void ll_destroy(linked_list *list) {
+void ll_destroy(llist *list) {
 	ll_clear(list);
 	free(list);
 }
 
-void ll_delete_all(linked_list *list) {
-	linked_iter iterator = ll_iter_head(list);
+void ll_delete_all(llist *list) {
+	literator iterator = ll_iter_head(list);
 	while(ll_iter_has_next(&iterator)) {
 		free(ll_iter_next(&iterator));
 	}
 	ll_destroy(list);
 }
 
-int ll_size(linked_list *list) {
+int ll_size(llist *list) {
 	int size = 0;
-	linked_iter iter = ll_iter_head(list);
+	literator iter = ll_iter_head(list);
 	while(ll_iter_has_next(&iter)) {
 		ll_iter_next(&iter);
 		size += 1;
@@ -129,8 +129,8 @@ int ll_size(linked_list *list) {
 	return size;
 }
 
-void *ll_get(linked_list *list, int index) {
-	linked_iter iterator = ll_iter_head(list);
+void *ll_get(llist *list, int index) {
+	literator iterator = ll_iter_head(list);
 	for(int i = 0; i < index; i++) {
 		ll_iter_next(&iterator);
 	}
@@ -141,23 +141,23 @@ void *ll_get(linked_list *list, int index) {
 ITERATOR
 ************************/
 
-linked_iter ll_iter_head(linked_list *list) {
-	linked_iter iterator;
+literator ll_iter_head(llist *list) {
+	literator iterator;
 	iterator.current = list->head;
 	iterator.goesForward = true;
 	iterator.origin = list;
 	return iterator;
 }
 
-linked_iter ll_iter_tail(linked_list *list) {
-	linked_iter iterator;
+literator ll_iter_tail(llist *list) {
+	literator iterator;
 	iterator.current = list->tail;
 	iterator.goesForward = false;
 	iterator.origin = list;
 	return iterator;
 }
 
-void *ll_iter_next(linked_iter *iter) {
+void *ll_iter_next(literator *iter) {
 	if(iter->current == NULL) {
 		return NULL;
 	} else {
@@ -171,11 +171,11 @@ void *ll_iter_next(linked_iter *iter) {
 	}
 }
 
-bool ll_iter_has_next(linked_iter *iter) {
+bool ll_iter_has_next(literator *iter) {
 	return iter->current != NULL;
 }
 
-void ll_iter_clear_to_current(linked_iter *iter) {
+void ll_iter_clear_to_current(literator *iter) {
 	if(iter->current == NULL) {
 		ll_clear(iter->origin);
 	}
@@ -183,18 +183,18 @@ void ll_iter_clear_to_current(linked_iter *iter) {
 		return;
 	}
 	if(iter->goesForward) {
-		linked_node *current = iter->origin->head;
+		lnode *current = iter->origin->head;
 		while(current->next != iter->current) {
-			linked_node *next = current->next;
+			lnode *next = current->next;
 			free(current);
 			current = next;
 		}
 		iter->origin->head = iter->current;
 		iter->origin->head->prev = NULL;
 	} else {
-		linked_node *current = iter->origin->tail;
+		lnode *current = iter->origin->tail;
 		while(current->prev != iter->current) {
-			linked_node *prev = current->prev;
+			lnode *prev = current->prev;
 			free(current);
 			current = prev;
 		}
@@ -203,23 +203,23 @@ void ll_iter_clear_to_current(linked_iter *iter) {
 	}
 }
 
-void ll_iter_clear_remaining(linked_iter *iter) {
+void ll_iter_clear_remaining(literator *iter) {
 	if(iter->current == NULL) {
 		return;
 	}
 	if(!iter->goesForward) {
-		linked_node *current = iter->origin->head;
+		lnode *current = iter->origin->head;
 		while(current->next != iter->current) {
-			linked_node *next = current->next;
+			lnode *next = current->next;
 			free(current);
 			current = next;
 		}
 		iter->origin->head = iter->current;
 		iter->origin->head->prev = NULL;
 	} else {
-		linked_node *current = iter->origin->tail;
+		lnode *current = iter->origin->tail;
 		while(current->prev != iter->current) {
-			linked_node *prev = current->prev;
+			lnode *prev = current->prev;
 			free(current);
 			current = prev;
 		}

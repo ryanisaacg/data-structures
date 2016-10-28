@@ -13,7 +13,7 @@ struct hash_entry {
 	void *key, *value;
 };
 struct hash_map {
-	linked_list entries[HASHMAP_ENTRY_LENGTH];
+	llist entries[HASHMAP_ENTRY_LENGTH];
 	bool (*eq)(void *a, void *b);
 };
 

@@ -35,8 +35,8 @@ void hm_put(hash_map *map, int hash, void *key, void *value) {
 
 void *hm_get(hash_map *map, int hash, void *key) {
 	int index = get_hash(hash);
-	linked_list data = map->entries[index];
-	linked_iter iterator = ll_iter_head(&data);
+	llist data = map->entries[index];
+	literator iterator = ll_iter_head(&data);
 	while(ll_iter_has_next(&iterator)) {
 		hash_entry *entry = ll_iter_next(&iterator);
 		if(entry->hash == hash && map->eq(entry->key, key)) {
