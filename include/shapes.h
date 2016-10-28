@@ -37,3 +37,5 @@ int shape_top(shape s);
 int shape_bottom(shape s);
 void shape_set_pos(shape *s, int x, int y);
 bool shape_overlaps(shape a, shape b); 
+bool shape_contains(shape a, vector2 point);
+
