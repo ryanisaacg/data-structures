@@ -40,7 +40,7 @@ int shape_tests() {
 	shape_set_pos(&s1, 5, 5);
 	ASSERT(shape_top(s1) == 5, 9, "shape_top and shape_set_pos for rects");
 	shape_set_pos(&s2, 300, 300);
-	ASSERT(!shape_overlaps(s1, s2), "shape_set_pos for circ");
+	ASSERT(!shape_overlaps(s1, s2), 10, "shape_set_pos for circ");
 	return 0;
 }
 
