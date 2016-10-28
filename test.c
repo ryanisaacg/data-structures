@@ -1,4 +1,5 @@
 #include "array_list.h"
+#include "shapes.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -20,6 +21,26 @@ int al_tests() {
 	ASSERT(list.length == 17, 3, "length tracking");
 	extract = al_get(list, 16);
 	ASSERT(*extract == 14, 4, "array growing");
+	return 0;
+}
+
+int shape_tests() {
+	shape s1, s2, s3;
+	s1 = shape_rect(0, 0, 16, 16);
+	s2 = shape_circ(15, 16, 3);
+	s3 = shape_rect(17, 2, 1, 3);
+	ASSERT(shape_x(s1) == 0, 1, "shape_x for rects");
+	ASSERT(shape_x(s2) == 15, 2, "shape_x for circ");
+	ASSERT(shape_y(s3) == 2, 3, "shape_y for rects");
+	ASSERT(shape_y(s2) == 16, 4, "shape_y for circ");
+	ASSERT(shape_overlaps(s1, s2), 5, "Rectangle - circle overlap");
+	ASSERT(!shape_overlaps(s2, s3), 6, "Circle - rectangle overlap");
+	ASSERT(shape_overlaps(s1, s1), 7, "Rectangle - rectangle overlap");
+	ASSERT(!shape_overlaps(s1, s3), 8, "Rectangle - rectangle overlap #2");
+	shape_set_pos(&s1, 5, 5);
+	ASSERT(shape_top(s1) == 5, 9, "shape_top and shape_set_pos for rects");
+	shape_set_pos(&s2, 300, 300);
+	ASSERT(!shape_overlaps(s1, s2), "shape_set_pos for circ");
 	return 0;
 }
 
