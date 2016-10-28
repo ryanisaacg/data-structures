@@ -73,3 +73,17 @@ bool shape_overlaps(shape a, shape b) {
 	return false;
 }
 
+bool shape_contains(shape s, vector2 point) {
+	switch(s.type) {
+	case SHAPE_RECT: {
+		rect r = s.data.rectangle;
+		return point.x >= r.x && point.y >= r.y && point.x < r.x + r.width && point.y < r.y + r.height;
+	}
+	case SHAPE_CIRC: {
+		circ c = s.data.circ;
+		int x = c.x - point.x;
+		int y = c.y - point.y;
+		return radius * radius >= x * x + y * y;
+	}
+}
+
