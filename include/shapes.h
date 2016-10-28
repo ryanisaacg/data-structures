@@ -35,5 +35,5 @@ int shape_left(shape s);
 int shape_right(shape s);
 int shape_top(shape s);
 int shape_bottom(shape s);
-int shape_set_pos(shape *s, int x, int y);
+void shape_set_pos(shape *s, int x, int y);
 bool shape_overlaps(shape a, shape b); 
