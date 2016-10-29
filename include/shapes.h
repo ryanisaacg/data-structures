@@ -3,39 +3,39 @@
 #include <stdbool.h>
 #include "util.h"
 
-DEFSTRUCT(rect);
-struct rect {
+DEFSTRUCT(Rectangle);
+struct Rectangle {
 	int x, y, width, height;
 };
 
-DEFSTRUCT(vector2);
-struct vector2 {
+DEFSTRUCT(Vector2);
+struct Vector2 {
 	int x, y;
 };
 
-DEFSTRUCT(circle);
-struct circle {
+DEFSTRUCT(Circle);
+struct Circle {
 	int x, y, radius;
 };
 
-DEFSTRUCT(shape);
-struct shape {
+DEFSTRUCT(Shape);
+struct Shape {
 	enum { SHAPE_RECT, SHAPE_CIRC} type;
 	union {
-		rect rectangle;
-		circle circ;
+		Rectangle rectangle;
+		Circle circ;
 	} data;
 };
 
-shape shape_rect(int x, int y, int width, int height);
-shape shape_circ(int x, int y, int radius);
-int shape_x(shape s);
-int shape_y(shape s);
-int shape_left(shape s);
-int shape_right(shape s);
-int shape_top(shape s);
-int shape_bottom(shape s);
-void shape_set_pos(shape *s, int x, int y);
-bool shape_overlaps(shape a, shape b); 
-bool shape_contains(shape a, vector2 point);
+Shape shape_rect(int x, int y, int width, int height);
+Shape shape_circ(int x, int y, int radius);
+int shape_x(Shape s);
+int shape_y(Shape s);
+int shape_left(Shape s);
+int shape_right(Shape s);
+int shape_top(Shape s);
+int shape_bottom(Shape s);
+void shape_set_pos(Shape *s, int x, int y);
+bool shape_overlaps(Shape a, Shape b); 
+bool shape_contains(Shape a, Vector2 point);
 

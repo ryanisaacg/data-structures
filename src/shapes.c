@@ -1,30 +1,30 @@
 #include "shapes.h"
 
-shape shape_rect(int x, int y, int width, int height) {
-	rect r = {x, y, width, height};
-	shape s;
+Shape shape_rect(int x, int y, int width, int height) {
+	Rectangle r = {x, y, width, height};
+	Shape s;
 	s.type = SHAPE_RECT;
 	s.data.rectangle = r;
 	return s;
 }
 
-shape shape_circ(int x, int y, int radius) {
-	circle c = {x, y, radius};
-	shape s;
+Shape shape_circ(int x, int y, int radius) {
+	Circle c = {x, y, radius};
+	Shape s;
 	s.type = SHAPE_CIRC;
 	s.data.circ = c;
 	return s;
 }
 
-int shape_x(shape s) {
+int shape_x(Shape s) {
 	return s.data.circ.x;
 }
 
-int shape_y(shape s) {
+int shape_y(Shape s) {
 	return s.data.circ.y;
 }
 
-int shape_left(shape s) {
+int shape_left(Shape s) {
 	switch(s.type) {
 	case SHAPE_RECT:
 		return s.data.rectangle.x;
@@ -34,7 +34,7 @@ int shape_left(shape s) {
 	return 0;
 }
 
-int shape_right(shape s) {
+int shape_right(Shape s) {
 	switch(s.type) {
 	case SHAPE_RECT:
 		return s.data.rectangle.x + s.data.rectangle.width;
@@ -44,7 +44,7 @@ int shape_right(shape s) {
 	return 0;
 }
 
-int shape_top(shape s) {
+int shape_top(Shape s) {
 	switch(s.type) {
 	case SHAPE_RECT:
 		return s.data.rectangle.y;
@@ -54,7 +54,7 @@ int shape_top(shape s) {
 	return 0;
 }
 
-int shape_bottom(shape s) {
+int shape_bottom(Shape s) {
 	switch(s.type) {
 	case SHAPE_RECT:
 		return s.data.rectangle.y + s.data.rectangle.height;
@@ -64,26 +64,26 @@ int shape_bottom(shape s) {
 	return 0;
 }
 
-void shape_set_pos(shape *s, int x, int y) {
+void shape_set_pos(Shape *s, int x, int y) {
 	s->data.circ.x = x;
 	s->data.circ.y = y;
 }
 
-bool shape_overlaps(shape a, shape b) {
+bool shape_overlaps(Shape a, Shape b) {
 	if(a.type == SHAPE_RECT && b.type == SHAPE_RECT) { 
-		rect r1 = a.data.rectangle;
-		rect r2 = b.data.rectangle;
+		Rectangle r1 = a.data.rectangle;
+		Rectangle r2 = b.data.rectangle;
 		return r1.x < r2.x + r2.width && r1.x + r1.width > r2.x && r1.y < r2.y + r2.height && r1.y + r1.height > r2.y;
 	} else if(a.type == SHAPE_CIRC && b.type == SHAPE_CIRC) {
-		circle c1 = a.data.circ;
-		circle c2 = b.data.circ;
+		Circle c1 = a.data.circ;
+		Circle c2 = b.data.circ;
 		int x = c1.x - c2.x;
 		int y = c1.y - c2.y;
 		int radius = c1.radius + c2.radius;
 		return radius * radius >= x * x + y * y;
 	} else if(a.type == SHAPE_RECT) {
-		rect r = a.data.rectangle;
-		circle c = b.data.circ;
+		Rectangle r = a.data.rectangle;
+		Circle c = b.data.circ;
 		int x = c.x;
 		int y = c.y;
 		if (c.x < r.x) {
@@ -100,18 +100,18 @@ bool shape_overlaps(shape a, shape b) {
 		y = y - c.y;
 		return x * x + y * y < c.radius * c.radius;
 	} else {
-		return shape_overlaps(b, a); //only write code to cover rect - circle
+		return shape_overlaps(b, a); //only write code to cover Rectangle - circle
 	}
 }
 
-bool shape_contains(shape s, vector2 point) {
+bool shape_contains(Shape s, Vector2 point) {
 	switch(s.type) {
 	case SHAPE_RECT: {
-		rect r = s.data.rectangle;
+		Rectangle r = s.data.rectangle;
 		return point.x >= r.x && point.y >= r.y && point.x < r.x + r.width && point.y < r.y + r.height;
-		}
+	}
 	case SHAPE_CIRC: {
-		circle c = s.data.circ;
+		Circle c = s.data.circ;
 		int x = c.x - point.x;
 		int y = c.y - point.y;
 		return c.radius * c.radius >= x * x + y * y;

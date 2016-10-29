@@ -3,42 +3,42 @@
 #include "util.h"
 #include <stdbool.h>
 
-DEFSTRUCT(llist);
-DEFSTRUCT(lnode);
-DEFSTRUCT(literator);
+DEFSTRUCT(LinkedList);
+DEFSTRUCT(LinkedNode);
+DEFSTRUCT(LinkedIterator);
 
-struct lnode {
+struct LinkedNode {
 	void *data;
-	lnode *next, *prev;
+	LinkedNode *next, *prev;
 };
-struct llist {
-	lnode *head, *tail;
+struct LinkedList {
+	LinkedNode *head, *tail;
 };
-struct literator {
-	llist *origin;
-	lnode *current;
+struct LinkedIterator {
+	LinkedList *origin;
+	LinkedNode *current;
 	bool goesForward;
 };
 
-llist *ll_new();
-llist *ll_duplicate(llist *list);
-void ll_add_first(llist *list, void *value);
-void ll_add_last(llist *list, void *value);
-void ll_concat(llist *mutated, llist *newItems);
-void *ll_get_first(llist *list);
-void *ll_get_last(llist *list);
-void *ll_get(llist *list, int index);
-void *ll_remove_last(llist *list);
-void *ll_remove_first(llist *list);
-bool ll_empty(llist *list);
-void ll_clear(llist *list);
-void ll_destroy(llist *list);
-void ll_delete_all(llist *list);
-int ll_size(llist *list);
+LinkedList *ll_new();
+LinkedList *ll_duplicate(LinkedList *list);
+void ll_add_first(LinkedList *list, void *value);
+void ll_add_last(LinkedList *list, void *value);
+void ll_concat(LinkedList *mutated, LinkedList *newItems);
+void *ll_get_first(LinkedList *list);
+void *ll_get_last(LinkedList *list);
+void *ll_get(LinkedList *list, int index);
+void *ll_remove_last(LinkedList *list);
+void *ll_remove_first(LinkedList *list);
+bool ll_empty(LinkedList *list);
+void ll_clear(LinkedList *list);
+void ll_destroy(LinkedList *list);
+void ll_delete_all(LinkedList *list);
+int ll_size(LinkedList *list);
 
-literator ll_iter_head(llist *list);
-literator ll_iter_tail(llist *list);
-void *ll_iter_next(literator *iter);
-bool ll_iter_has_next(literator *iter);
-void ll_iter_clear_to_current(literator *iter);
-void ll_iter_clear_remaining(literator *iter);
+LinkedIterator ll_iter_head(LinkedList *list);
+LinkedIterator ll_iter_tail(LinkedList *list);
+void *ll_iter_next(LinkedIterator *iter);
+bool ll_iter_has_next(LinkedIterator *iter);
+void ll_iter_clear_to_current(LinkedIterator *iter);
+void ll_iter_clear_remaining(LinkedIterator *iter);

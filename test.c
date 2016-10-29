@@ -6,7 +6,7 @@
 #define ASSERT(cond, err, msg) if(!(cond)) { fprintf(stderr, "Test failed:\t%s", msg);  return (err); }
 
 int al_tests() {
-	alist list = al_new(sizeof(int));
+	ArrayList list = al_new(sizeof(int));
 	int temp = 5;
 	al_add(&list, &temp);
 	temp = 6;
@@ -25,7 +25,7 @@ int al_tests() {
 }
 
 int shape_tests() {
-	shape s1, s2, s3;
+	Shape s1, s2, s3;
 	s1 = shape_rect(0, 0, 16, 16);
 	s2 = shape_circ(15, 16, 3);
 	s3 = shape_rect(17, 2, 1, 3);

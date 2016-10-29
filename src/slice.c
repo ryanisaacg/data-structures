@@ -7,18 +7,18 @@
 #include "util.h"
 #include "optional.h"
 
-slice new_slice(char* string) {
+Slice new_slice(char* string) {
 	return make_slice(string, strlen(string));
 }
 
-slice make_slice(char* string, int length) {
-	slice s;
+Slice make_slice(char* string, int length) {
+	Slice s;
 	s.data = string;
 	s.len = length;
 	return s;
 }
 
-bool equals(slice s1, slice s2) {
+bool equals(Slice s1, Slice s2) {
 	if(s1.len != s2.len)
 		return false;
 	for(int i = 0; i < s1.len; i++) {
@@ -29,7 +29,7 @@ bool equals(slice s1, slice s2) {
 	return true;
 }
 
-bool starts_with(slice s1, slice s2) {
+bool starts_with(Slice s1, Slice s2) {
 	if(s1.len < s2.len) {
 		return false;
 	}
@@ -41,7 +41,7 @@ bool starts_with(slice s1, slice s2) {
 	return true;
 }
 
-bool equals_string(slice s1, char* data) {
+bool equals_string(Slice s1, char* data) {
 	int string_length = strlen(data);
 	if(s1.len != string_length) {
 		return false;
@@ -54,7 +54,7 @@ bool equals_string(slice s1, char* data) {
 	return true;
 }
 
-char* evaluate(slice str) {
+char* evaluate(Slice str) {
 	char *string = array(string, str.len);
 	int i = 0;
 	for(; i < str.len; i++) {
@@ -64,7 +64,7 @@ char* evaluate(slice str) {
 	return string;
 }
 
-bool slice_contains(slice s1, char c) {
+bool slice_contains(Slice s1, char c) {
 	for(int i = 0; i < s1.len; i++) {
 		if(s1.data[i] == c) {
 			return true;
@@ -73,7 +73,7 @@ bool slice_contains(slice s1, char c) {
 	return false;
 }
 
-int slice_hash(slice s) {
+int slice_hash(Slice s) {
 	unsigned hash;
 	int i;
     for(hash = i = 0; i < s.len; ++i)
@@ -88,7 +88,7 @@ int slice_hash(slice s) {
     return hash;
 }
 
-bool is_numeric(slice s) {
+bool is_numeric(Slice s) {
 	bool period = false;
 	for(int i = 0; i < s.len; i++) {
 		if(s.data[i] > '9' || s.data[i] < '0') {
@@ -106,7 +106,7 @@ bool is_numeric(slice s) {
 	return s.len > 0;
 }
 
-optional parse_int(slice s) {
+Optional parse_int(Slice s) {
 	if(!is_numeric(s) || slice_contains(s, '.'))
 		return op_empty();
 	else {
@@ -122,12 +122,12 @@ optional parse_int(slice s) {
 }
 
 bool slice_eq_voidptr(void *slice1, void *slice2) {
-	slice *a = slice1;
-	slice *b = slice2;
+	Slice *a = slice1;
+	Slice *b = slice2;
 	return equals(*a, *b);
 }
 
-slice int_to_slice(int number) {
+Slice int_to_slice(int number) {
     if(number == 0) 
         return new_slice("0");
     else 

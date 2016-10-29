@@ -2,30 +2,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-optional op_empty() {
+Optional op_empty() {
 	return op_wrap(NULL);
 }
 
-optional op_wrap(void *data) {
-	optional op;
+Optional op_wrap(void *data) {
+	Optional op;
 	op.data = data;
 	op.has = data != NULL;
 	return op;
 }
 
-void *op_get(optional op) {
+void *op_get(Optional op) {
 	if(!op.has) {
-		fprintf(stderr, "Attempt to get from empty optional.");
+		fprintf(stderr, "Attempt to get from empty Optional.");
 		exit(-1);
 	}
 	return op.data;
 }
 
-bool op_has(optional op) {
+bool op_has(Optional op) {
 	return op.has;
 }
 
-void *op_if_else(optional op, void *default_val) {
+void *op_if_else(Optional op, void *default_val) {
 	if(op.has)
 		return op.data;
 	else

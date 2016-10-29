@@ -3,14 +3,14 @@
 #include <stdbool.h>
 #include "util.h"
 
-DEFSTRUCT(optional);
-struct optional {
+DEFSTRUCT(Optional);
+struct Optional {
 	void *data;
 	bool has;
 };
 
-optional op_empty();
-optional op_wrap(void *data);
-void *op_get(optional op);
-bool op_has(optional op);
-void *op_if_else(optional op, void *default_val);
+Optional op_empty();
+Optional op_wrap(void *data);
+void *op_get(Optional op);
+bool op_has(Optional op);
+void *op_if_else(Optional op, void *default_val);

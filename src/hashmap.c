@@ -10,35 +10,35 @@ static bool void_ptr_equals(void *a, void *b) {
 	return a == b;
 }
 
-hash_map *hm_new() {
-	hash_map *map = new(map);
+HashMap *hm_new() {
+	HashMap *map = new(map);
 	map->eq = &void_ptr_equals;
 	for(int i = 0; i < HASHMAP_ENTRY_LENGTH; i++)
 		map->entries[i].head = map->entries[i].tail = NULL;
 	return map;
 }
 
-hash_map *hm_new_eqfunc(bool (*eq)(void*, void*)) {
-	hash_map *map = hm_new();
+HashMap *hm_new_eqfunc(bool (*eq)(void*, void*)) {
+	HashMap *map = hm_new();
 	map->eq = eq;
 	return map;
 }
 
-void hm_put(hash_map *map, int hash, void *key, void *value) {
+void hm_put(HashMap *map, int hash, void *key, void *value) {
 	int index = get_hash(hash);
-	hash_entry *entry = new(entry);
+	HashEntry *entry = new(entry);
 	entry->hash = hash;
 	entry->key = key;
 	entry->value = value;
 	ll_add_last(&(map->entries[index]), entry);
 }
 
-void *hm_get(hash_map *map, int hash, void *key) {
+void *hm_get(HashMap *map, int hash, void *key) {
 	int index = get_hash(hash);
-	llist data = map->entries[index];
-	literator iterator = ll_iter_head(&data);
+	LinkedList data = map->entries[index];
+	LinkedIterator iterator = ll_iter_head(&data);
 	while(ll_iter_has_next(&iterator)) {
-		hash_entry *entry = ll_iter_next(&iterator);
+		HashEntry *entry = ll_iter_next(&iterator);
 		if(entry->hash == hash && map->eq(entry->key, key)) {
 			return entry->value;
 		}
@@ -46,7 +46,7 @@ void *hm_get(hash_map *map, int hash, void *key) {
 	return NULL;
 }
 
-bool hm_has(hash_map *map, int hash, void *key){
+bool hm_has(HashMap *map, int hash, void *key){
 	return hm_get(map, hash, key) != NULL;
 }
 
