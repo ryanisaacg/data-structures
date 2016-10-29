@@ -49,5 +49,8 @@ int main(int argc, char *argv[]) {
 	else if(strcmp(argv[1], "al") == 0) {
 		return al_tests();
 	}
-	return 0;
+	else if(strcmp(argv[1], "shapes") == 0) {
+		return shape_tests();
+	}
+	return -1;
 }
