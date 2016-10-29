@@ -52,5 +52,5 @@ int main(int argc, char *argv[]) {
 	else if(strcmp(argv[1], "shapes") == 0) {
 		return shape_tests();
 	}
-	return -1;
+	return 0;
 }
