@@ -56,3 +56,7 @@ size_t al_find(ArrayList *list, void *item) {
 void al_set(ArrayList *list, size_t index, void *data) {
     memcpy(list->buffer + index * list->item_size, data, list->item_size);
 }
+
+void al_clear(ArrayList *list) {
+	list->length = 0;
+}

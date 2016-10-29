@@ -29,3 +29,5 @@ void al_remove_unorder(ArrayList *list, size_t index);
 void al_set(ArrayList *list, size_t index, void *data);
 //Find an item from the array
 size_t al_find(ArrayList *list, void *item);
+//Remove all items from the array
+void al_clear(ArrayList *list);
