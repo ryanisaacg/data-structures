@@ -6,17 +6,22 @@
 
 DEFSTRUCT(ArrayList);
 struct ArrayList {
-    size_t item_size;
-    int length, capacity;
+    size_t item_size, length, capacity;
     void *buffer;
 };
-
+//Create a new array list and allocate its buffer
 ArrayList al_new(size_t item_size);
-ArrayList al_new_sized(size_t item_size, int init_capacity);
-void *al_get(ArrayList list, int index);
+//Create a new array list and give a number of elements to allocate
+ArrayList al_new_sized(size_t item_size, size_t init_capacity);
+//Get an item from the array list at the index
+void *al_get(ArrayList list, size_t index);
+//Add an item at the end of the array list
 void al_add(ArrayList *list, void *item);
-void al_remove_index(ArrayList *list, int index);
+//Remove the item at the index from the list by shifting elements
+void al_remove_index(ArrayList *list, size_t index);
+//Remove an item that matches the parameter in memory
 void al_remove_item(ArrayList *list, void *item);
-void al_set(ArrayList *list, int index, void *data);
-int al_index(ArrayList *list, void *item);
-int al_size(ArrayList *list);
+//Set the index to the given data
+void al_set(ArrayList *list, size_t index, void *data);
+//Find an item from the array
+size_t al_find(ArrayList *list, void *item);
