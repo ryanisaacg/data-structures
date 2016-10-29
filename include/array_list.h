@@ -23,6 +23,8 @@ void al_add(ArrayList *list, void *item);
 void al_remove_index(ArrayList *list, size_t index);
 //Remove an item that matches the parameter in memory
 void al_remove_item(ArrayList *list, void *item);
+//Remove an item by swapping out the last one
+void al_remove_unorder(ArrayList *list, size_t index);
 //Set the index to the given data
 void al_set(ArrayList *list, size_t index, void *data);
 //Find an item from the array

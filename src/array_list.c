@@ -39,6 +39,11 @@ void al_remove_item(ArrayList *list, void *item) {
     al_remove_index(list, al_find(list, item));
 }
 
+void al_remove_unorder(ArrayList *list, size_t index) {
+	memcpy(list->buffer + (list->item_size * index), list->buffer + (list->item_size * (list->length - 1)), list->item_size);
+	list->length--;
+}
+
 size_t al_find(ArrayList *list, void *item) {
     for(size_t i = 0; i < list->length; i++) {
         if(memcmp(al_get(*list, i), item, list->item_size) == 0) {
