@@ -13,6 +13,8 @@ struct ArrayList {
 ArrayList al_new(size_t item_size);
 //Create a new array list and give a number of elements to allocate
 ArrayList al_new_sized(size_t item_size, size_t init_capacity);
+//Create a new array with a preallocated buffer
+ArrayList al_prealloc(size_t item_size, void *buffer, size_t capacity);
 //Get an item from the array list at the index
 void *al_get(ArrayList list, size_t index);
 //Add an item at the end of the array list

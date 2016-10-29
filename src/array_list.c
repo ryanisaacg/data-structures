@@ -8,8 +8,11 @@ ArrayList al_new(size_t item_size) {
 }
 
 ArrayList al_new_sized(size_t item_size, size_t init_capacity) {
-    ArrayList list = {item_size, 0, init_capacity, malloc(item_size * init_capacity)};
-    return list;
+	return al_prealloc(item_size, malloc(item_size * init_capacity), init_capacity);
+}
+
+ArrayList al_prealloc(size_t item_size, void *buffer, size_t capacity) {
+	return (ArrayList){item_size, 0, capacity, buffer};
 }
 
 void *al_get(ArrayList list, size_t index) {
