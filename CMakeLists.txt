@@ -2,10 +2,15 @@ cmake_minimum_required(VERSION 2.4.0)
 project (data-structures)
 set(CMAKE_BUILD_TYPE Debug)
 
+if(COMMAND cmake_policy)
+	cmake_policy(SET CMP0003 NEW)
+endif(COMMAND cmake_policy)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 file(GLOB DS-SOURCES src/*.c)
 
 add_library(data-structures SHARED ${DS-SOURCES})
+target_link_libraries(data-structures m)
 
 add_executable(ds-tests test.c)
 target_link_libraries(ds-tests data-structures)
