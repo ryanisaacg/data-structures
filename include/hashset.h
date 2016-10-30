@@ -1,22 +1,21 @@
 #pragma once
 
+#include <stdbool.h>
 #include "util.h"
 
 DEFSTRUCT(HashSet);
-DEFSTRUCT(HashSetIterator);
 
 struct HashSet {
-	ArrayList buffer;
+	size_t length, capacity, item_size;
+	unsigned char *buffer;
 };
-struct HashSetIterator {
-	HashSet *set;
-	int index;
-}
+
+typedef HashSet HashSetIterator;
 
 HashSet hs_new(size_t item_size);
 HashSet hs_new_capacity(size_t item_size, size_t initial_capacity);
-void hs_add(HashSet *set, void *item);
-HashSetIterator hs_iterator(HashSet *set);
-bool hs_iterator_has_next(HashSetIterator iterator);
-void *hs_iterator_peek(HashSetIterator iterator);
-void *hs_iterator_next(HashSetIterator *iterator);
+void hs_add(HashSet *set, int hash, void *item);
+bool hs_has(HashSet set, int has, void *item);
+HashSetIterator hs_iter(HashSet set);
+bool hs_iter_has_next(HashSetIterator iter);
+void *hs_iter_next(HashSetIterator *iter);
