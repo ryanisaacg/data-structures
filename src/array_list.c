@@ -60,3 +60,7 @@ void al_set(ArrayList *list, size_t index, void *data) {
 void al_clear(ArrayList *list) {
 	list->length = 0;
 }
+
+void al_free(ArrayList list) {
+	free(list->buffer);
+}

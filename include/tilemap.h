@@ -25,3 +25,5 @@ void tl_remove(TileMap map, int x, int y);
 bool tl_free(TileMap map, int x, int y);
 //Finds if a region is empty
 bool tl_empty(TileMap map, int x, int y, int width, int height);
+//Free the memory from the tilemap
+void tl_free(TileMap map);

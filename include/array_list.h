@@ -31,3 +31,5 @@ void al_set(ArrayList *list, size_t index, void *data);
 size_t al_find(ArrayList *list, void *item);
 //Remove all items from the array
 void al_clear(ArrayList *list);
+//Free the memory from an array list
+void al_free(ArrayList list);
