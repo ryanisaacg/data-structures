@@ -38,7 +38,7 @@ bool tl_empty(TileMap map, int x, int y, int width, int height) {
 	return tl_free(map, x, y + height) && tl_free(map, x + width, y) && tl_free(map, x + width, y + height);
 }
 
-void tl_free(TileMap map) {
+void tl_destroy(TileMap map) {
 	free(map.buffer);
 	free(map.has);
 }

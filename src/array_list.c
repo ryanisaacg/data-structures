@@ -61,6 +61,6 @@ void al_clear(ArrayList *list) {
 	list->length = 0;
 }
 
-void al_free(ArrayList list) {
-	free(list->buffer);
+void al_destroy(ArrayList list) {
+	free(list.buffer);
 }
