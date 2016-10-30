@@ -1,4 +1,5 @@
 #include "array_list.h"
+#include "hashset.h"
 #include "shapes.h"
 #include <stdio.h>
 #include <string.h>
@@ -44,12 +45,31 @@ int shape_tests() {
 	return 0;
 }
 
+int hs_tests() {
+	HashSet set = hs_new(sizeof(int));
+	int temp = 1;
+	hs_add(&set, temp, &temp);	
+	hs_add(&set, temp, &temp);
+	temp = 2;
+	hs_add(&set, temp, &temp);
+	int items = 0;
+	HashSetIterator iter = hs_iter(set);
+	while(hs_iter_has_next(iter)) {
+		items++;
+		int *value = hs_iter_next(&iter);
+		if(*value != 1 && *value != 2) 
+			return 1;
+	}
+	return items != 2;
+}
+
 int main(int argc, char *argv[]) {
 	if(argc == 1) return -1;
 	else if(strcmp(argv[1], "al") == 0) {
 		return al_tests();
-	}
-	else if(strcmp(argv[1], "shapes") == 0) {
+	} else if(strcmp(argv[1], "hs") == 0) {
+		return hs_tests();
+	} else if(strcmp(argv[1], "shapes") == 0) {
 		return shape_tests();
 	}
 	return 0;
