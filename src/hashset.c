@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+static int index_of(HashSet set, int hash, void *item);
+
 static unsigned char *get_index(HashSet set, int index) {
 	return set.buffer + (abs(index) * (1 + sizeof(int) + set.item_size));
 }
@@ -17,11 +19,11 @@ HashSet hs_new_capacity(size_t item_size, size_t initial_capacity) {
 void hs_add(HashSet *set, int hash, void *item) {
 	if(set->length * 2 < set->capacity) {
 		//Find the correct index
-		int current = hash % set->capacity;
-		//Probe linearly
-		while(*get_index(*set, current)  == 1) current++;
-		//Find the correct spot in the buffer
-		unsigned char *target = get_index(*set, current);
+		int index = index_of(*set, hash, item);
+		if(index != -1) return;
+		index = hash % set->capacity;
+		while(*get_index(*set, index) == 1) index++;
+		unsigned char *target = get_index(*set, index);
 		//Set the 'item is here' byte
 		target[0] = 1;
 		//Store the hash value
@@ -49,15 +51,34 @@ void hs_add(HashSet *set, int hash, void *item) {
 	}
 }
 
+static int index_of(HashSet set, int hash, void *item) {
+	int index = hash % set.capacity; //Starting position
+	while(*get_index(set, index) == 1 && index < set.capacity) {
+		unsigned char *current = get_index(set, index);
+		if(memcmp(&hash, current + 1, sizeof(int)) == 0 && 
+			memcmp(item, current + 1 + sizeof(int), set.item_size) == 0) return index;
+		else
+			index++;
+	}
+	return -1;
+}
+
+bool hs_has(HashSet set, int hash, void *item) {
+	return index_of(set, hash, item) != -1;
+}
+
 HashSetIterator hs_iter(HashSet set) {
 	return set;
 }
+
+#include <stdio.h>
 
 bool hs_iter_has_next(HashSetIterator iter) {
 	if(iter.capacity == 0) return false;
 	if(*(iter.buffer) == 1) return true;
 	else {
 		iter.buffer += 1 + sizeof(int) + iter.item_size;
+		iter.capacity -= 1;
 		return hs_iter_has_next(iter);
 	}
 }
@@ -66,7 +87,7 @@ void *hs_iter_next(HashSetIterator *iter) {
 	if(iter->capacity == 0) return NULL;
 	if(*(iter->buffer) == 1) {
 		void *buffer = iter->buffer + 1 + sizeof(int); 
-		iter->buffer += iter->item_size;
+		iter->buffer += 1 + sizeof(int) + iter->item_size;
 		iter->capacity -= 1;
 		return buffer;
 	} else {
