@@ -6,8 +6,8 @@
 
 DEFSTRUCT(TileMap);
 struct TileMap {
-	const int width, height, tile;
-	const size_t item_size;
+	int width, height, tile;
+	size_t item_size;
 	char *buffer;
 	bool *has;
 };
