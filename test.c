@@ -1,5 +1,6 @@
 #include "array_list.h"
 #include "hashset.h"
+#include "linked_list.h"
 #include "shapes.h"
 #include <stdio.h>
 #include <string.h>
@@ -42,6 +43,31 @@ int shape_tests() {
 	ASSERT(shape_top(s1) == 5, 9, "shape_top and shape_set_pos for rects");
 	shape_set_pos(&s2, 300, 300);
 	ASSERT(!shape_overlaps(s1, s2), 10, "shape_set_pos for circ");
+	return 0;
+}
+
+int *box_int(int x) {
+	int *boxed = malloc(sizeof(int));
+	*boxed = x;
+	return boxed;
+}
+
+int ll_tests() {
+	LinkedList *list = ll_new();
+	ASSERT(ll_empty(list), 1, "Linked list empty function");
+	ll_add_first(list, box_int(5));
+	ll_add_first(list, box_int(6));
+	LinkedIterator iterator = ll_iter_head(list);
+	ASSERT(*((int*)ll_iter_next(&iterator)) == 6, 2, "Linked list iterator");
+	iterator = ll_iter_head(list);
+	while(ll_iter_has_next(&iterator)) {
+		ll_iter_next(&iterator);
+	}
+	ll_iter_clear_to_current(&iterator);
+	ASSERT(ll_empty(list), 3, "Iterator clear to position");
+	ll_clear(list);
+	ASSERT(ll_empty(list), 4, "Linked list clear function");
+	ll_destroy(list);
 	return 0;
 }
 
