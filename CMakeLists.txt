@@ -9,7 +9,7 @@ endif(COMMAND cmake_policy)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 file(GLOB DS-SOURCES src/*.c)
 
-add_library(data-structures SHARED ${DS-SOURCES})
+add_library(data-structures STATIC ${DS-SOURCES})
 set_property(TARGET data-structures PROPERTY C_STANDARD 99)
 target_link_libraries(data-structures m)
 
