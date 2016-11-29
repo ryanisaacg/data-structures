@@ -26,7 +26,7 @@ void tl_set(TileMap map, const void *source, int x, int y) {
 }
 
 bool tl_free(TileMap map, int x, int y) {
-	return map.has[get_index(map, x, y)];
+	return x >= 0 && y >= 0 && x < map.width && y < map.height && map.has[get_index(map, x, y)];
 }
 
 bool tl_empty(TileMap map, int x, int y, int width, int height) {
