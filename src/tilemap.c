@@ -5,7 +5,8 @@
 static int get_index(const TileMap map, int x, int y);
 
 TileMap tl_new(size_t item_size, int width, int height, int tile_size) {
-	return tl_prealloc(item_size, width, height, tile_size, malloc(width * height * item_size), malloc(width * height * sizeof(bool)));
+	return tl_prealloc(item_size, width, height, tile_size, malloc(width * height * item_size), 
+			calloc(width * height * sizeof(bool), sizeof(bool)) );
 }
 
 TileMap tl_prealloc(size_t item_size, int width, int height, int tile_size, char *buffer, bool *boolBuffer) {
@@ -26,7 +27,7 @@ void tl_set(TileMap map, const void *source, int x, int y) {
 }
 
 bool tl_free(TileMap map, int x, int y) {
-	return x >= 0 && y >= 0 && x < map.width && y < map.height && map.has[get_index(map, x, y)];
+	return x >= 0 && y >= 0 && x < map.width && y < map.height && !map.has[get_index(map, x, y)];
 }
 
 bool tl_empty(TileMap map, int x, int y, int width, int height) {
