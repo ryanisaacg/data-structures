@@ -20,7 +20,7 @@ void *al_get(ArrayList list, size_t index) {
 }
 
 void al_add(ArrayList *list, void *item) {
-    if(list->length < list->capacity) {
+    if(list->length < list->capacity / 2) {
         al_set(list, list->length, item);
         list->length++;
     } else {
