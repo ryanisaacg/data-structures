@@ -23,7 +23,7 @@ void tl_remove(TileMap map, int x, int y) {
 
 void tl_set(TileMap map, const void *source, int x, int y) {
 	map.has[get_index(map, x, y)] = true;
-	memcpy(map.buffer, source, map.tile);
+	memcpy(map.buffer + get_index(map, x, y), source, map.tile);
 }
 
 bool tl_free(TileMap map, int x, int y) {
