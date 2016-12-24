@@ -7,7 +7,7 @@
 DEFSTRUCT(ArrayList);
 struct ArrayList {
     size_t item_size, length, capacity;
-    void *buffer;
+    char *buffer;
 };
 //Create a new array list and allocate its buffer
 ArrayList al_new(size_t item_size);
