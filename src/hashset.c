@@ -40,7 +40,7 @@ void hs_add(HashSet *set, int hash, void *item) {
 		//Insert the new item
 		hs_add(set, hash, item);
 		//Insert the old items
-		for(int i = 0; i < old.capacity; i++) {
+		for(unsigned int i = 0; i < old.capacity; i++) {
 			unsigned char *chunk = get_index(old, i);
 			if(*chunk == 1)  {
 				int hash;
@@ -52,7 +52,7 @@ void hs_add(HashSet *set, int hash, void *item) {
 }
 
 static int index_of(HashSet set, int hash, void *item) {
-	int index = hash % set.capacity; //Starting position
+	unsigned int index = hash % set.capacity; //Starting position
 	while(*get_index(set, index) == 1 && index < set.capacity) {
 		unsigned char *current = get_index(set, index);
 		if(memcmp(&hash, current + 1, sizeof(int)) == 0 && 
