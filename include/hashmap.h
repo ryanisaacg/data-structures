@@ -22,3 +22,4 @@ HashMap *hm_new_eqfunc(bool (*eq)(void*, void*));
 void hm_put(HashMap *map, int hash, void *key, void *value);
 void *hm_get(HashMap *map, int hash, void *key);
 bool hm_has(HashMap *map, int hash, void *key);
+void hm_destroy(HashMap *map);

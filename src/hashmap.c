@@ -53,3 +53,7 @@ bool hm_has(HashMap *map, int hash, void *key){
 static int get_hash(int key) {
 	return abs(key) % HASHMAP_ENTRY_LENGTH;
 }
+
+void hm_destroy(HashMap *map) {
+	free(map);
+}
