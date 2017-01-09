@@ -13,6 +13,7 @@ static bool void_ptr_equals(void *a, void *b) {
 HashMap *hm_new() {
 	HashMap *map = new(map);
 	map->eq = &void_ptr_equals;
+	map->keys = al_new(sizeof(void*));
 	for(int i = 0; i < HASHMAP_ENTRY_LENGTH; i++)
 		map->entries[i].head = map->entries[i].tail = NULL;
 	return map;
@@ -30,6 +31,7 @@ void hm_put(HashMap *map, int hash, void *key, void *value) {
 	entry->hash = hash;
 	entry->key = key;
 	entry->value = value;
+	al_add(&map->keys, key);
 	ll_add_last(&(map->entries[index]), entry);
 }
 
@@ -44,6 +46,10 @@ void *hm_get(HashMap *map, int hash, void *key) {
 		}
 	}
 	return NULL;
+}
+
+ArrayList hm_get_keys(HashMap *map) {
+	return map->keys;
 }
 
 bool hm_has(HashMap *map, int hash, void *key){
